@@ -1,12 +1,12 @@
 const { default: mongoose } = require('mongoose');
-const category = require('../models/Category');
+const Category = require('../models/Category');
 
 // @desc get all categories
 // @route GET /api/categories
 // @access Public
 exports.getCategories = async (req, res) => {
     try {
-        const categories = await category.find();
+        const categories = await Category.find();
         res.status(200).json({ success: true, data: categories });
     } catch (error) {
         res.status(500).json({ success: false, error: error.message });
@@ -19,11 +19,11 @@ exports.getCategories = async (req, res) => {
 
 exports.getCategory = async (req, res) => {
     try{
-        let category = await category.findById(req.params.idOrSlug);
+        let category = await Category.findById(req.params.idOrSlug);
         if (mongoose.Types.ObjectId.isValid(req.params.idOrSlug)) {
-            category = await category.findById(req.params.idOrSlug);
+            category = await Category.findById(req.params.idOrSlug);
         }else {
-            category = await category.findOne({ slug: req.params.idOrSlug });
+            category = await Category.findOne({ slug: req.params.idOrSlug });
         }
         if (!category) {
             return res.status(404).json({ success: false, message: 'Category not found' });
@@ -41,7 +41,7 @@ exports.getCategory = async (req, res) => {
 
 exports.createCategory = async (req, res) => {
     try {
-        const category = await category.create(req.body);
+        const category = await Category.create(req.body);
         res.status(201).json({ success: true, data: category });
 
     }catch (error) {
@@ -51,7 +51,7 @@ exports.createCategory = async (req, res) => {
 
 exports.updateCategory = async (req, res) => {
     try {
-        const category = await category.findById(req.params.id, req.body, {
+        const category = await Category.findById(req.params.id, req.body, {
         new: true,
         runValidators: true,
         });
@@ -72,7 +72,7 @@ exports.updateCategory = async (req, res) => {
 
 exports.deleteCategory = async (req, res) => {
     try {
-        const category = await category.findById(req.params.id);
+        const category = await Category.findById(req.params.id);
 
         if (!category) {
             return res.status(404).json({ success: false, message: 'Category not found' });

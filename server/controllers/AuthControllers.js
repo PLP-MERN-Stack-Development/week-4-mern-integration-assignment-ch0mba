@@ -5,13 +5,14 @@ const User = require('../models/User');
 //@route POST /api/auth/register
 //@access Public
 exports.register = async (req, res) => {
-    const { name, email, password } = req.body;
+    const { name, email, password, role } = req.body;
 
     try {
-        const user = await user.create ({ name, email, password });
+        const user = await User.create ({ name, email, password, role});
         sendTokenResponse(user, 201, res);
     }catch (err) {
-        res.status(400).json({ success: false, message: 'Server error' });
+        console.error(err);
+        res.status(400).json({ success: false, message: `Server error:${err.message}`});
     }
 };
 
@@ -19,23 +20,26 @@ exports.register = async (req, res) => {
 // @route POST /api/auth/login
 // @access Public
 exports.login = async (req, res) => {
-    const { eamil, password } = req.body;
+    const { email, password } = req.body;
 
     //validate email and password
     if (!email || !password) {
-        return res.status(400).json({ success: false, message: 'Please provide email and password' });
+         console.error(err);
+        return res.status(400).json({ success: false, message: `Please provide email and password:${err.message}`});
     } 
 
     //check for user
     const user = await User.findOne({ email }).select('+password');
     if (!user) {
-        return res.status(401).json({ success: false, message: 'Invalid credentials' });
+         console.error(err);
+        return res.status(401).json({ success: false, message: `Invalid credentials:${err.message}`});
     }
 
     //check if password matches
     const isMatch = await user.matchPassword(password);
     if (!isMatch) {
-        return res.status(401).json({ success: false, message: 'Invalid credentials' });
+         console.error(err);
+        return res.status(401).json({ success: false, message: `Invalid credentials: ${err.message}` });
     }
     sendTokenResponse(user, 200, res);
 };
