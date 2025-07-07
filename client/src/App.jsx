@@ -9,12 +9,16 @@ import Register from './pages/Register';
 import CreatePost from './pages/CreatePost';
 import PostDetail from './pages/PostDetail';
 import AdminDashboard from './pages/AdminDashboard';
+import { ThemeProvider} from './components/theme-provider'
 
 // 👇 Import the ProtectedRoute component
 import ProtectedRoute from './components/ProtectedRoute'; // No need for { ProtectedRoute }
 
+
+
 function App() {
   return (
+    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
     <AuthProvider>
       <Router>
         <Routes>
@@ -45,6 +49,7 @@ function App() {
         </Routes>
       </Router>
     </AuthProvider>
+  </ThemeProvider>
   );
 }
 

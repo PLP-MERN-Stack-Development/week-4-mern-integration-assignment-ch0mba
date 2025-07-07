@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { postService } from '../services/api';
 import PostItem from '../components/PostItem';
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Input } from '@/components/ui/input';
 
 export default function Home() {
   const [posts, setPosts] = useState([]);
