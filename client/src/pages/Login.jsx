@@ -4,7 +4,9 @@ import LoginForm from '../components/LoginForm';
 import { useAuth } from '../context/AuthContext';
 
 
-export default function Login() {
+export default function Login() 
+
+{
    const navigate = useNavigate();
    const { login } = useAuth();
 

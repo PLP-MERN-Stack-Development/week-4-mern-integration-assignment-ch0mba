@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { postService } from '../services/api';
+import { Input } from "@/components/ui/input"
+import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
+import { Toaster } from "@/components/ui/sonner";
 
 export default function CreatePost() {
   const navigate = useNavigate();
@@ -31,38 +35,39 @@ export default function CreatePost() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
+    <form className = "w-full max-w-sm mx-auto mt-10" onSubmit={handleSubmit}>
+      <h1 className="m-10 text-xl font-bold" >CREATE NEW POST</h1>
+      <Input className="m-10"
         type="text"
         placeholder="Title"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
         required
       />
-      <textarea
+      <Textarea className="m-10"
         placeholder="Content"
         value={content}
         onChange={(e) => setContent(e.target.value)}
         required
       />
-      <input
+      <Input className="m-10"
         type="file"
         accept="image/*"
         onChange={(e) => setFeaturedImage(e.target.files[0])}
       />
-      <input
+      <Input className="m-10"
         type="text"
         placeholder="Category ID"
         value={category}
         onChange={(e) => setCategory(e.target.value)}
       />
-      <input
+      <Input className="m-10"
         type="text"
         placeholder="Tags (comma-separated)"
         value={tags}
         onChange={(e) => setTags(e.target.value)}
       />
-      <button type="submit">Create Post</button>
+      <Button className="m-10" type="submit">Create Post</Button>
       {error && <p style={{ color: 'red' }}>{error}</p>}
     </form>
   );

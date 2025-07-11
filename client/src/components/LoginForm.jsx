@@ -41,7 +41,7 @@ export default function LoginForm({ onLogin }) {
           Enter your email and password below to login to your account
          </CardDescription>
         <CardAction>
-          <Button variant="/register">Sign Up</Button>
+          <a href="/register" className="text-white-600 hover:underline"> Sign up</a>
         </CardAction>
       </CardHeader>
       <CardContent></CardContent>
